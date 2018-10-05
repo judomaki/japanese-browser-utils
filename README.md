@@ -12,7 +12,7 @@ This script will replace the Romaji version of the translation into Hiragana.
 ### Usage
 
 Add script 
-[google_translate_hiragana_fix.js](http://github.com/cleberz/japanese-browser-utils/tampermonkey/google_translate_hiragana_fix.js)
+[google_translate_hiragana_fix.js](/tampermonkey/google_translate_hiragana_fix.js)
 into TamperMonkey or GreaseMonkey. Don't forget to enable the scripts.
 
 ## Wiktionary scrolling to Japanese
@@ -24,5 +24,5 @@ Every time I search for a kanji or kanji compound on the English Wiktionary, the
 ### Usage
 
 Add script 
-[wiktionary_scroll_to_japanese.js](http://github.com/cleberz/japanese-browser-utils/tampermonkey/wiktionary_scroll_to_japanese.js)
+[wiktionary_scroll_to_japanese.js](/tampermonkey/wiktionary_scroll_to_japanese.js)
 into TamperMonkey or GreaseMonkey. Don't forget to enable the scripts.
