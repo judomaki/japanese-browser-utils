@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Google Translate hiragana phonetics fix
-// @namespace    https://github.com/cleberz
+// @namespace    https://github.com/judomaki
 // @version      0.1
 // @description  Converts the phonetic representation of the text from romaji to hiragana.
 // @author       Cleber Zarate (cleber.zarate at gmail.com)
