@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  Converts the phonetic representation of the text from romaji to hiragana.
 // @author       Cleber Zarate (cleber.zarate at gmail.com)
-// @match        https://www.google.com/search?q=japanese+translator*
+// @match        http*://www.google.com/search?q=japanese+translator*
 // @grant        none
 // ==/UserScript==
 
@@ -15,73 +15,76 @@
        var romajiSpan = document.querySelector('pre[id="tw-source-rmn"]').firstChild
        var romaji = romajiSpan.innerText;
 
-       //don't do anything if text is same as previous
+      //don't do anything if text is same as previous
        if(previousRomaji != romaji) {
           romajiSpan.innerText = "";
 
           //If memory String consumption ever becomes a concern in modern browsers I might
           // do something a bit more efficient
           romajiSpan.innerText = romaji.toLowerCase()
+          //double-letters become small tsu
+              .replace(/([bcdfghjkmnprstyz])\1/g,"っ$1")
+
           //start with the longest sillables
-              .replace(/kyā/,"きゃあ").replace(/kyū/,"きゅう").replace(/kyō/,"きょう")
-              .replace(/shā/,"しゃあ").replace(/shū/,"しゅう").replace(/shō/,"しょう")
-              .replace(/chā/,"ちゃあ").replace(/chū/,"ちゅう").replace(/chō/,"ちょう")
-              .replace(/nyā/,"にゃあ").replace(/nyū/,"にゅう").replace(/nyō/,"にょう")
-              .replace(/hyā/,"ひゃあ").replace(/hyū/,"ひゅう").replace(/hyō/,"ひょう")
-              .replace(/myā/,"みゃあ").replace(/myū/,"みゅう").replace(/myō/,"みょう")
-              .replace(/ryā/,"りゃあ").replace(/ryū/,"りゅう").replace(/ryō/,"りょう")
-              .replace(/gyā/,"ぎゃあ").replace(/gyū/,"ぎゅう").replace(/gyō/,"ぎょう")
-              .replace(/jā/,"じゃあ").replace(/jū/,"じゅう").replace(/jō/,"じょう")
-              .replace(/byā/,"びゃあ").replace(/byū/,"びゅう").replace(/byō/,"びょう")
-              .replace(/pyā/,"ぴゃあ").replace(/pyū/,"ぴゅう").replace(/pyō/,"ぴょう")
+              .replace(/kyā/g,"きゃあ").replace(/kyū/g,"きゅう").replace(/kyō/g,"きょう")
+              .replace(/shā/g,"しゃあ").replace(/shū/g,"しゅう").replace(/shō/g,"しょう")
+              .replace(/chā/g,"ちゃあ").replace(/chū/g,"ちゅう").replace(/chō/g,"ちょう")
+              .replace(/nyā/g,"にゃあ").replace(/nyū/g,"にゅう").replace(/nyō/g,"にょう")
+              .replace(/hyā/g,"ひゃあ").replace(/hyū/g,"ひゅう").replace(/hyō/g,"ひょう")
+              .replace(/myā/g,"みゃあ").replace(/myū/g,"みゅう").replace(/myō/g,"みょう")
+              .replace(/ryā/g,"りゃあ").replace(/ryū/g,"りゅう").replace(/ryō/g,"りょう")
+              .replace(/gyā/g,"ぎゃあ").replace(/gyū/g,"ぎゅう").replace(/gyō/g,"ぎょう")
+              .replace(/jā/g,"じゃあ").replace(/jū/g,"じゅう").replace(/jō/g,"じょう")
+              .replace(/byā/g,"びゃあ").replace(/byū/g,"びゅう").replace(/byō/g,"びょう")
+              .replace(/pyā/g,"ぴゃあ").replace(/pyū/g,"ぴゅう").replace(/pyō/g,"ぴょう")
 
           //triple-letter sillables.
-              .replace(/kya/,"きゃ").replace(/kyu/,"きゅ").replace(/kyo/,"きょ")
-              .replace(/sha/,"しゃ").replace(/shu/,"しゅ").replace(/sho/,"しょ")
-              .replace(/cha/,"ちゃ").replace(/chu/,"ちゅ").replace(/cho/,"ちょ")
-              .replace(/nya/,"にゃ").replace(/nyu/,"にゅ").replace(/nyo/,"にょ")
-              .replace(/hya/,"ひゃ").replace(/hyu/,"ひゅ").replace(/hyo/,"ひょ")
-              .replace(/mya/,"みゃ").replace(/myu/,"みゅ").replace(/myo/,"みょ")
-              .replace(/rya/,"りゃ").replace(/ryu/,"りゅ").replace(/ryo/,"りょ")
-              .replace(/gya/,"ぎゃ").replace(/gyu/,"ぎゅ").replace(/gyo/,"ぎょ")
-              .replace(/ja/,"じゃ").replace(/ju/,"じゅ").replace(/jo/,"じょ")
-              .replace(/bya/,"びゃ").replace(/byu/,"びゅ").replace(/byo/,"びょ")
-              .replace(/pya/,"ぴゃ").replace(/pyu/,"ぴゅ").replace(/pyo/,"ぴょ")
+              .replace(/kya/g,"きゃ").replace(/kyu/g,"きゅ").replace(/kyo/g,"きょ")
+              .replace(/sha/g,"しゃ").replace(/shu/g,"しゅ").replace(/sho/g,"しょ")
+              .replace(/cha/g,"ちゃ").replace(/chu/g,"ちゅ").replace(/cho/g,"ちょ")
+              .replace(/nya/g,"にゃ").replace(/nyu/g,"にゅ").replace(/nyo/g,"にょ")
+              .replace(/hya/g,"ひゃ").replace(/hyu/g,"ひゅ").replace(/hyo/g,"ひょ")
+              .replace(/mya/g,"みゃ").replace(/myu/g,"みゅ").replace(/myo/g,"みょ")
+              .replace(/rya/g,"りゃ").replace(/ryu/g,"りゅ").replace(/ryo/g,"りょ")
+              .replace(/gya/g,"ぎゃ").replace(/gyu/g,"ぎゅ").replace(/gyo/g,"ぎょ")
+              .replace(/ja/g,"じゃ").replace(/ju/g,"じゅ").replace(/jo/g,"じょ")
+              .replace(/bya/g,"びゃ").replace(/byu/g,"びゅ").replace(/byo/g,"びょ")
+              .replace(/pya/g,"ぴゃ").replace(/pyu/g,"ぴゅ").replace(/pyo/g,"ぴょ")
 
           //double-letter sillables
 
-              .replace(/kā/,"かあ").replace(/kī/,"きい").replace(/kū/,"くう").replace(/kē/,"けい").replace(/kō/,"こう")
-              .replace(/gā/,"があ").replace(/gī/,"ぎい").replace(/gū/,"ぐう").replace(/gē/,"げい").replace(/gō/,"ごう")
-              .replace(/sā/,"さあ").replace(/shī/,"しい").replace(/sū/,"すう").replace(/sē/,"せい").replace(/sō/,"そう")
-              .replace(/zā/,"ざあ").replace(/zī/,"じい").replace(/zū/,"ずう").replace(/zē/,"ぜい").replace(/zō/,"ぞう")
-              .replace(/tā/,"たあ").replace(/chī/,"ちい").replace(/tsū/,"つう").replace(/tē/,"てい").replace(/tō/,"とう")
-              .replace(/dā/,"だあ").replace(/dī/,"ぢい").replace(/dū/,"づう").replace(/dē/,"でい").replace(/dō/,"どう")
-              .replace(/nā/,"なあ").replace(/nī/,"にい").replace(/nū/,"ぬう").replace(/nē/,"ねい").replace(/nō/,"のう")
-              .replace(/hā/,"はあ").replace(/hī/,"ひい").replace(/(h|f)ū/,"ふう").replace(/hē/,"へい").replace(/hō/,"ほう")
-              .replace(/bā/,"ばあ").replace(/bī/,"びい").replace(/bū/,"ぶう").replace(/bē/,"べい").replace(/bō/,"ぼう")
-              .replace(/pā/,"ぱあ").replace(/pī/,"ぴい").replace(/pū/,"ぷう").replace(/pē/,"ぺい").replace(/pō/,"ぽう")
-              .replace(/mā/,"まあ").replace(/mī/,"みい").replace(/mū/,"むう").replace(/mē/,"めい").replace(/mō/,"もう")
-              .replace(/yā/,"やあ")                    .replace(/yū/,"ゆう")                    .replace(/yō/,"よう")
-              .replace(/wā/,"わあ")                    .replace(/wō/,"をう")
+              .replace(/kā/g,"かあ").replace(/kī/g,"きい").replace(/kū/g,"くう").replace(/kē/g,"けい").replace(/kō/g,"こう")
+              .replace(/gā/g,"があ").replace(/gī/g,"ぎい").replace(/gū/g,"ぐう").replace(/gē/g,"げい").replace(/gō/g,"ごう")
+              .replace(/sā/g,"さあ").replace(/shī/g,"しい").replace(/sū/g,"すう").replace(/sē/g,"せい").replace(/sō/g,"そう")
+              .replace(/zā/g,"ざあ").replace(/zī/g,"じい").replace(/zū/g,"ずう").replace(/zē/g,"ぜい").replace(/zō/g,"ぞう")
+              .replace(/tā/g,"たあ").replace(/chī/g,"ちい").replace(/tsū/g,"つう").replace(/tē/g,"てい").replace(/tō/g,"とう")
+              .replace(/dā/g,"だあ").replace(/dī/g,"ぢい").replace(/dū/g,"づう").replace(/dē/g,"でい").replace(/dō/g,"どう")
+              .replace(/nā/g,"なあ").replace(/nī/g,"にい").replace(/nū/g,"ぬう").replace(/nē/g,"ねい").replace(/nō/g,"のう")
+              .replace(/hā/g,"はあ").replace(/hī/g,"ひい").replace(/(h|f)ū/g,"ふう").replace(/hē/g,"へい").replace(/hō/g,"ほう")
+              .replace(/bā/g,"ばあ").replace(/bī/g,"びい").replace(/bū/g,"ぶう").replace(/bē/g,"べい").replace(/bō/g,"ぼう")
+              .replace(/pā/g,"ぱあ").replace(/pī/g,"ぴい").replace(/pū/g,"ぷう").replace(/pē/g,"ぺい").replace(/pō/g,"ぽう")
+              .replace(/mā/g,"まあ").replace(/mī/g,"みい").replace(/mū/g,"むう").replace(/mē/g,"めい").replace(/mō/g,"もう")
+              .replace(/yā/g,"やあ")                    .replace(/yū/g,"ゆう")                    　.replace(/yō/g,"よう")
+              .replace(/wā/g,"わあ")                                                            　.replace(/wō/g,"をう")
 
-              .replace(/ka/,"か").replace(/ki/,"き").replace(/ku/,"く").replace(/ke/,"け").replace(/ko/,"こ")
-              .replace(/ga/,"が").replace(/gi/,"ぎ").replace(/gu/,"ぐ").replace(/ge/,"げ").replace(/go/,"ご")
-              .replace(/sa/,"さ").replace(/shi/,"し").replace(/su/,"す").replace(/se/,"せ").replace(/so/,"そ")
-              .replace(/za/,"ざ").replace(/zi/,"じ").replace(/zu/,"ず").replace(/ze/,"ぜ").replace(/zo/,"ぞ")
-              .replace(/ta/,"た").replace(/chi/,"ち").replace(/tsu/,"つ").replace(/te/,"て").replace(/to/,"と")
-              .replace(/da/,"だ").replace(/di/,"ぢ").replace(/du/,"づ").replace(/de/,"で").replace(/do/,"ど")
-              .replace(/na/,"な").replace(/ni/,"に").replace(/nu/,"ぬ").replace(/ne/,"ね").replace(/no/,"の")
-              .replace(/ha/,"は").replace(/hi/,"ひ").replace(/(h|f)u/,"ふ").replace(/he/,"へ").replace(/ho/,"ほ")
-              .replace(/ba/,"ば").replace(/bi/,"び").replace(/bu/,"ぶ").replace(/be/,"べ").replace(/bo/,"ぼ")
-              .replace(/pa/,"ぱ").replace(/pi/,"ぴ").replace(/pu/,"ぷ").replace(/pe/,"ぺ").replace(/po/,"ぽ")
-              .replace(/ma/,"ま").replace(/mi/,"み").replace(/mu/,"む").replace(/me/,"め").replace(/mo/,"も")
-              .replace(/ya/,"や")                  .replace(/yi/,"ゆ")                   .replace(/yu/,"よ")
-              .replace(/wa/,"わ")                                                        .replace(/wi/,"を")
+              .replace(/ka/g,"か").replace(/ki/g,"き").replace(/ku/g,"く").replace(/ke/g,"け").replace(/ko/g,"こ")
+              .replace(/ga/g,"が").replace(/gi/g,"ぎ").replace(/gu/g,"ぐ").replace(/ge/g,"げ").replace(/go/g,"ご")
+              .replace(/sa/g,"さ").replace(/shi/g,"し").replace(/su/g,"す").replace(/se/g,"せ").replace(/so/g,"そ")
+              .replace(/za/g,"ざ").replace(/zi/g,"じ").replace(/zu/g,"ず").replace(/ze/g,"ぜ").replace(/zo/g,"ぞ")
+              .replace(/ta/g,"た").replace(/chi/g,"ち").replace(/tsu/g,"つ").replace(/te/g,"て").replace(/to/g,"と")
+              .replace(/da/g,"だ").replace(/di/g,"ぢ").replace(/du/g,"づ").replace(/de/g,"で").replace(/do/g,"ど")
+              .replace(/na/g,"な").replace(/ni/g,"に").replace(/nu/g,"ぬ").replace(/ne/g,"ね").replace(/no/g,"の")
+              .replace(/ha/g,"は").replace(/hi/g,"ひ").replace(/(h|f)u/g,"ふ").replace(/he/g,"へ").replace(/ho/g,"ほ")
+              .replace(/ba/g,"ば").replace(/bi/g,"び").replace(/bu/g,"ぶ").replace(/be/g,"べ").replace(/bo/g,"ぼ")
+              .replace(/pa/g,"ぱ").replace(/pi/g,"ぴ").replace(/pu/g,"ぷ").replace(/pe/g,"ぺ").replace(/po/g,"ぽ")
+              .replace(/ma/g,"ま").replace(/mi/g,"み").replace(/mu/g,"む").replace(/me/g,"め").replace(/mo/g,"も")
+              .replace(/ya/g,"や")                  .replace(/yi/g,"ゆ")                   .replace(/yu/g,"よ")
+              .replace(/wa/g,"わ")                                                        .replace(/wo/g,"を")
 
-              .replace(/ā/,"ああ")                .replace(/ō/,"おお")                .replace(/ū/,"うう")
+              .replace(/ā/g,"ああ").replace(/ī/g,"いい").replace(/ō/g,"おお")                .replace(/ū/g,"うう")
 
-              .replace(/a/,"あ").replace(/i/,"い").replace(/u/,"う").replace(/e/,"え").replace(/o/,"お")
-              .replace(/n/,"ん");
+              .replace(/a/g,"あ").replace(/i/g,"い").replace(/u/g,"う").replace(/e/g,"え").replace(/o/g,"お")
+              .replace(/n/g,"ん");
           previousRomaji = romajiSpan.innerText
        }
     }
