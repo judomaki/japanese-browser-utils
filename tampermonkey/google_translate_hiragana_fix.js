@@ -43,6 +43,7 @@ function replaceRomajiWithHiragana(romaji) {
 
               .replace(/kā/g,"かあ").replace(  /kī/g,"きい").replace(    /kū/g,"くう").replace(  /kē/g,"けい").replace(/kō/g,"こう")
               .replace(/gā/g,"があ").replace(  /gī/g,"ぎい").replace(    /gū/g,"ぐう").replace(  /gē/g,"げい").replace(/gō/g,"ごう")
+              .replace(/rā/g,"らあ").replace(  /rī/g,"りい").replace(    /rū/g,"るう").replace(  /rē/g,"れい").replace(/rō/g,"ろう")
               .replace(/sā/g,"さあ").replace( /shī/g,"しい").replace(    /sū/g,"すう").replace(  /sē/g,"せい").replace(/sō/g,"そう")
               .replace(/zā/g,"ざあ").replace(/z|jī/g,"じい").replace(    /zū/g,"ずう").replace(/z|jē/g,"ぜい").replace(/zō/g,"ぞう")
               .replace(/tā/g,"たあ").replace( /chī/g,"ちい").replace(   /tsū/g,"つう").replace(  /tē/g,"てい").replace(/tō/g,"とう")
@@ -57,6 +58,7 @@ function replaceRomajiWithHiragana(romaji) {
 
               .replace(/ka/g,"か").replace(  /ki/g,"き").replace(    /ku/g,"く").replace(  /ke/g,"け").replace(/ko/g,"こ")
               .replace(/ga/g,"が").replace(  /gi/g,"ぎ").replace(    /gu/g,"ぐ").replace(  /ge/g,"げ").replace(/go/g,"ご")
+              .replace(/ra/g,"ら").replace(  /ri/g,"り").replace(    /ru/g,"る").replace(  /re/g,"れ").replace(/ro/g,"ろ")
               .replace(/sa/g,"さ").replace( /shi/g,"し").replace(    /su/g,"す").replace(  /se/g,"せ").replace(/so/g,"そ")
               .replace(/za/g,"ざ").replace(/z|ji/g,"じ").replace(    /zu/g,"ず").replace(/z|je/g,"ぜ").replace(/zo/g,"ぞ")
               .replace(/ta/g,"た").replace( /chi/g,"ち").replace(   /tsu/g,"つ").replace(  /te/g,"て").replace(/to/g,"と")
@@ -82,6 +84,10 @@ function replaceRomajiWithHiragana(romaji) {
     var previousTargetRomaji = document.querySelector('#tw-target-rmn').firstChild.innerText;
 
     var sourceRomajiListener = function(){
+       // only convert pronunciation if language is japanese
+       if (document.querySelector('#tw-sl').firstChild.innerText != 'Japanese')
+            return;
+       
        var romajiSpan = document.querySelector('#tw-source-rmn').firstChild
        var romaji = romajiSpan.innerText;
 
@@ -97,6 +103,10 @@ function replaceRomajiWithHiragana(romaji) {
     }
 
     var targetRomajiListener = function(){
+       // only convert pronunciation if language is japanese
+       if (document.querySelector('#tw-tl').firstChild.innerText != 'Japanese')
+            return;
+       
        var romajiSpan = document.querySelector('#tw-target-rmn').firstChild
        var romaji = romajiSpan.innerText;
 
