@@ -8,20 +8,8 @@
 // @grant        none
 // ==/UserScript==
 
-(function() {
-  'use strict';
-   var previousRomaji = document.querySelector('pre[id="tw-source-rmn"]').firstChild.innerText;
-   var romajiListener = function(){
-       var romajiSpan = document.querySelector('pre[id="tw-source-rmn"]').firstChild
-       var romaji = romajiSpan.innerText;
-
-      //don't do anything if text is same as previous
-       if(previousRomaji != romaji) {
-          romajiSpan.innerText = "";
-
-          //If memory String consumption ever becomes a concern in modern browsers I might
-          // do something a bit more efficient
-          romajiSpan.innerText = romaji.toLowerCase()
+function replaceRomajiWithHiragana(romaji) {
+   return romaji.toLowerCase()
           //double-letters become small tsu
               .replace(/([bcdfghjkmnprstyz])\1/g,"っ$1")
 
@@ -62,7 +50,6 @@
               .replace(/nā/g,"なあ").replace(/nī/g,"にい").replace(/nū/g,"ぬう").replace(/nē/g,"ねい").replace(/nō/g,"のう")
               .replace(/hā/g,"はあ").replace(/hī/g,"ひい").replace(/(h|f)ū/g,"ふう").replace(/hē/g,"へい").replace(/hō/g,"ほう")
               .replace(/bā/g,"ばあ").replace(/bī/g,"びい").replace(/bū/g,"ぶう").replace(/bē/g,"べい").replace(/bō/g,"ぼう")
-              .replace(/rā/g,"らあ").replace(/rī/g,"りい").replace(/rū/g,"る").replace(/rē/g,"れい").replace(/rō/g,"ろう")
               .replace(/pā/g,"ぱあ").replace(/pī/g,"ぴい").replace(/pū/g,"ぷう").replace(/pē/g,"ぺい").replace(/pō/g,"ぽう")
               .replace(/mā/g,"まあ").replace(/mī/g,"みい").replace(/mū/g,"むう").replace(/mē/g,"めい").replace(/mō/g,"もう")
               .replace(/yā/g,"やあ")                    .replace(/yū/g,"ゆう")                    　.replace(/yō/g,"よう")
@@ -77,7 +64,6 @@
               .replace(/na/g,"な").replace(/ni/g,"に").replace(/nu/g,"ぬ").replace(/ne/g,"ね").replace(/no/g,"の")
               .replace(/ha/g,"は").replace(/hi/g,"ひ").replace(/(h|f)u/g,"ふ").replace(/he/g,"へ").replace(/ho/g,"ほ")
               .replace(/ba/g,"ば").replace(/bi/g,"び").replace(/bu/g,"ぶ").replace(/be/g,"べ").replace(/bo/g,"ぼ")
-              .replace(/ra/g,"ら").replace(/ri/g,"り").replace(/ru/g,"る").replace(/re/g,"れ").replace(/ro/g,"ろ")
               .replace(/pa/g,"ぱ").replace(/pi/g,"ぴ").replace(/pu/g,"ぷ").replace(/pe/g,"ぺ").replace(/po/g,"ぽ")
               .replace(/ma/g,"ま").replace(/mi/g,"み").replace(/mu/g,"む").replace(/me/g,"め").replace(/mo/g,"も")
               .replace(/ya/g,"や")                  .replace(/yi/g,"ゆ")                   .replace(/yu/g,"よ")
@@ -87,9 +73,47 @@
 
               .replace(/a/g,"あ").replace(/i/g,"い").replace(/u/g,"う").replace(/e/g,"え").replace(/o/g,"お")
               .replace(/n/g,"ん");
-          previousRomaji = romajiSpan.innerText
+}
+
+(function() {
+  'use strict';
+
+    var previousSourceRomaji = document.querySelector('#tw-source-rmn').firstChild.innerText;
+    var previousTargetRomaji = document.querySelector('#tw-target-rmn').firstChild.innerText;
+
+    var sourceRomajiListener = function(){
+       var romajiSpan = document.querySelector('#tw-source-rmn').firstChild
+       var romaji = romajiSpan.innerText;
+
+      //don't do anything if text is same as previous
+       if(previousSourceRomaji != romaji) {
+          romajiSpan.innerText = "";
+
+          //If memory String consumption ever becomes a concern in modern browsers I might
+          // do something a bit more efficient
+          romajiSpan.innerText = replaceRomajiWithHiragana(romaji);
+          previousSourceRomaji = romajiSpan.innerText
        }
     }
-    var observer = new MutationObserver(romajiListener);
-    observer.observe(document.querySelector('pre[id="tw-source-rmn"]'), {attributes: true});
+
+    var targetRomajiListener = function(){
+       var romajiSpan = document.querySelector('#tw-target-rmn').firstChild
+       var romaji = romajiSpan.innerText;
+
+      //don't do anything if text is same as previous
+       if(previousTargetRomaji != romaji) {
+          romajiSpan.innerText = "";
+
+          //If memory String consumption ever becomes a concern in modern browsers I might
+          // do something a bit more efficient
+          romajiSpan.innerText = replaceRomajiWithHiragana(romaji);
+          previousTargetRomaji = romajiSpan.innerText
+       }
+    }
+    var sourceObserver = new MutationObserver(sourceRomajiListener);
+    sourceObserver.observe(document.querySelector('#tw-source-rmn'), {attributes: true});
+
+    var targetObserver = new MutationObserver(targetRomajiListener);
+    targetObserver.observe(document.querySelector('#tw-target-rmn'), {attributes: true});
+
 })();
